@@ -22,7 +22,7 @@ type Cache struct {
 	capacity          int           // емкость кеша
 	evictList         *list.List    // двусвязный список
 	defaultExpiration time.Duration // дефолтное время жизни
-	cleanupInterval   time.Duration // время очистки кеша
+	cleanupInterval   time.Duration // интервал очистки кеша
 }
 
 type Items struct {
@@ -137,6 +137,8 @@ func (c *Cache) Remove(key interface{}) {
 		log.Println("Key not found")
 		return
 	}
+
+	// удаляю данные из двунаправленного списка и мапы
 	c.evictList.Remove(element)
 	delete(c.items, key)
 	log.Printf("Removing item with key '%v'", key)

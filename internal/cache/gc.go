@@ -9,12 +9,15 @@ func (c *Cache) StartGC() {
 
 func (c *Cache) GC() {
 	for {
+		// ждем интервал
 		<- time.After(c.cleanupInterval)
 		if c.items == nil {
 			return
 		}
 
+		// поиск ключей, которые можно удалить
 		if keys := c.expiredKeys(); len(keys) != 0 {
+			// удаление ключей
 			c.cleanItems(keys)
 		}
 	}

@@ -22,4 +22,6 @@ func main() {
 	fmt.Println(cache.GetAll())
 	time.Sleep(11 * time.Second)
 	fmt.Println(cache.GetAll())
+	cache.Clear()
+	fmt.Println(cache.GetAll())
 }
